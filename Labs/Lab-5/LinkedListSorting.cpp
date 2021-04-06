@@ -16,11 +16,9 @@ class Node{
 
 class LinkedList{
 	Node *first, *last;
-	// static size_t count;
 public:
 	LinkedList(){
 		first = new Node(0);
-		// first -> data += 1;
 		last = NULL;
 	}
 	void addNodeAtStart(int d){
