@@ -5,8 +5,7 @@ using namespace std;
 class Node{
 	public:
 		int data;
-		Node *next;//TO point to next node, null otherwise
-		//Constructor
+		Node *next;
 		Node (int d, Node *n=NULL){
 			data = d;
 			next = n;
@@ -16,6 +15,10 @@ class Node{
 
 class LinkedList{
 	Node *first, *last;
+	void freeList(Node* t){
+		if(t != NULL)	freeList(t->next);
+		delete t;
+	}
 public:
 	LinkedList(){	first = new Node(0);	last = NULL;	}
 	void addNodeAtStart(int d){
@@ -36,6 +39,7 @@ public:
 		t1->data = t2->data;
 		t2->data = temp;
 	}
+private:
 	void bubbleSort(){
 		Node *t1, *t2;
 		for (t1=first->next;t1->next!=NULL;t1=t1->next)
@@ -54,10 +58,22 @@ public:
 					swap(t1, minNode);
 		}
 	}
+public:
+
 	void show(){
-		for ( Node *t = first -> next ; t != NULL ; t = t -> next )
-			cout << t -> data << ' ';
-		cout << '\n' ;
+		cout << *this << '\n' ;
+	}
+	void sort(){
+		selectionSort();
+	}
+	friend ostream& operator << (ostream& out, LinkedList& list){
+		for ( Node *t = list.first -> next ; t != NULL ; t = t -> next )
+			out << t -> data << ' ';
+		return out;
+	}
+	~LinkedList(){
+		freeList(first->next);
+		first = last = NULL;
 	}
 };
 
@@ -72,7 +88,8 @@ int main(){
 	list.addNodeAtEnd(61);
 	list.show();
 	//list.bubbleSort();
-	list.selectionSort();
+	list.sort();
 	list.show();
+	cout << "LinkedList is deleting\n";
 	return 0;
 }
