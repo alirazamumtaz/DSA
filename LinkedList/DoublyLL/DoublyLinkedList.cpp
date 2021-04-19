@@ -49,6 +49,21 @@ public:
 		head -> next = addInOrder(d, head->next);
 	}
 
+
+	void reverseList(){
+		DNode *p1,*p2,*p3;
+		p1 = head, p2 = head->next;
+		while(p2 != NULL){
+			p3 = p2->next;
+			p2->next = p1;
+			p1 = p2;
+			p2 = p3;
+		}
+		head->prev = head -> next;
+		// tail->next = NULL;
+		head->next = p1;
+	}
+
 	void print(){
 		for(DNode *t = head->next; t != head; t = t->next)
 			cout << t->data << ' ';
@@ -63,7 +78,7 @@ int main(int argc, char const *argv[]){
 	for (int i = 2; i < 16; i+=2)
 		list.push_back(i+1);
 	list.print();
-	list.addInOrder(19);
+	list.reverseList();
 	list.print();
 	return 0;
 }
