@@ -16,7 +16,7 @@ public:
 class LinkedStackQueue{ 
 	Node *first, *last;
 	int getFirstElement(){
-		if (first->next==NULL)	throw (0);
+		if (first->next==NULL)	throw ("does not exist");
 		Node *t = first -> next;
 		first -> next = t -> next;
 		int res = t -> data;
@@ -37,7 +37,12 @@ public:
 		else 				last = last -> next = new Node (d);
 	}
 	int pop(){
-		return getFirstElement();
+		if (first->next==NULL)	throw (0);
+		Node *t = first -> next;
+		first -> next = t -> next;
+		int res = t -> data;
+		delete t;
+		return res;
 	}
 	int dequeue(){
 		return getFirstElement();
